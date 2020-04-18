@@ -35,6 +35,8 @@ if __name__ == "__main__":
     while True:
         frame = vs.read()
 
+        # print(frame)
+
         frame = frame[1] if args.get("video",False) else frame
 
         if frame is None:
@@ -64,12 +66,12 @@ if __name__ == "__main__":
 
                 pts.append(center)
 
-        for i in range(1,len(pts)):
-            if pts[i-1] is None or pts[i] is None:
-                continue
+            for i in range(1,len(pts)):
+                if pts[i-1] is None or pts[i] is None:
+                    continue
 
-            thickness = int(np.sqrt(args["buffer"]/float(i+1)) * 2.5)
-            cv2.line(frame , pts[i-1] , pts[i] , (255,0,0) , thickness)
+                thickness = int(np.sqrt(args["buffer"]/float(i+1)) * 2.5)
+                cv2.line(frame , pts[i-1] , pts[i] , (255,0,0) , thickness)
 
         cv2.imshow("Frame" , frame)
         key = cv2.waitKey(1) & 0xFF
